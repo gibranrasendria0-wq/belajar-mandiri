@@ -67,7 +67,7 @@ export default function CourseCard({ course }) {
           height="h-2"
           label={isAllCompleted ? 'Selesai Sempurna' : 'Progres Belajar'}
           detail={`${completedInThisCourse} / ${totalLessons} Materi`}
-          gradient={isAllCompleted ? 'from-emerald-500 to-teal-400' : 'from-indigo-500 to-cyan-400'}
+          color={isAllCompleted ? 'bg-emerald-500' : 'bg-blue-600'}
         />
 
         {/* Meta & Action */}

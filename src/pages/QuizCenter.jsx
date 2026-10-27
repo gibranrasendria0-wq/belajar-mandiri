@@ -101,7 +101,7 @@ export default function QuizCenter() {
           value={`${totalQuizzes} Sesi`}
           subtext="Total seluruh sesi latihan"
           badgeColor="indigo"
-          colorClass="from-indigo-500/20 to-purple-500/10 text-indigo-400"
+          colorClass="bg-indigo-600/15 text-indigo-500 dark:text-indigo-400"
         />
         <StatCard
           icon={Target}
@@ -109,7 +109,7 @@ export default function QuizCenter() {
           value={`${avgAccuracy}%`}
           subtext="Persentase jawaban tepat"
           badgeColor="cyan"
-          colorClass="from-cyan-500/20 to-blue-500/10 text-cyan-400"
+          colorClass="bg-blue-600/15 text-blue-500 dark:text-blue-400"
         />
         <StatCard
           icon={Trophy}
@@ -117,7 +117,7 @@ export default function QuizCenter() {
           value={`${highestScore} Poin`}
           subtext="Rekor poin terbaik"
           badgeColor="amber"
-          colorClass="from-amber-500/20 to-rose-500/10 text-amber-400"
+          colorClass="bg-amber-600/15 text-amber-500 dark:text-amber-400"
         />
       </div>
 
@@ -202,8 +202,8 @@ export default function QuizCenter() {
                     onClick={() => setQuestionCount(cnt)}
                     className={`w-12 h-12 rounded-2xl font-black text-sm transition-all flex items-center justify-center ${
                       isSelected
-                        ? 'bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white shadow-md shadow-indigo-600/30 scale-105'
-                        : 'border border-slate-200 dark:border-[#232B3E] bg-slate-50 dark:bg-[#131722] text-slate-700 dark:text-slate-300 hover:border-indigo-400'
+                        ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 scale-105'
+                        : 'border border-slate-200 dark:border-[#232B3E] bg-slate-50 dark:bg-[#131722] text-slate-700 dark:text-slate-300 hover:border-blue-400'
                     }`}
                   >
                     {cnt}
@@ -237,22 +237,22 @@ export default function QuizCenter() {
         </div>
 
         {/* Summary Banner & Start Button */}
-        <div className="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/40 via-purple-950/30 to-cyan-950/40 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-6 rounded-2xl bg-slate-50 dark:bg-[#131722] border border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" /> Potensi Hadiah Kuis
+            <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-blue-500" /> Potensi Hadiah Kuis
             </span>
-            <p className="text-2xl font-black text-white">
+            <p className="text-2xl font-black text-slate-900 dark:text-white">
               Hingga +{estimatedXp} XP
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Mengerjakan {Math.min(questionCount, availableCount)} soal tanpa pengulangan
             </p>
           </div>
 
           <button
             onClick={handleStartQuiz}
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-extrabold text-base tracking-wide shadow-xl shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-base tracking-wide shadow-md shadow-blue-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
           >
             <Play className="w-5 h-5 fill-white" />
             <span>Mulai Sesi Kuis</span>

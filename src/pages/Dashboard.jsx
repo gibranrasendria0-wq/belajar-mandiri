@@ -34,7 +34,7 @@ export default function Dashboard() {
           subtext={`+${levelInfo.xpInCurrentLevel} XP di level saat ini`}
           badgeText="Akumulatif"
           badgeColor="cyan"
-          colorClass="from-indigo-500/20 to-cyan-500/10 text-cyan-400"
+          colorClass="bg-blue-600/15 text-blue-500 dark:text-blue-400"
         />
 
         <StatCard
@@ -42,9 +42,9 @@ export default function Dashboard() {
           title="Level Pengguna"
           value={`Level ${levelInfo.level}`}
           subtext={levelInfo.title}
-          badgeText={`${levelInfo.progressPercent}% to Lvl ${levelInfo.level + 1}`}
+          badgeText={`${levelInfo.progressPercent}% Progres`}
           badgeColor="indigo"
-          colorClass="from-amber-500/20 to-indigo-500/10 text-amber-400"
+          colorClass="bg-indigo-600/15 text-indigo-500 dark:text-indigo-400"
         />
 
         <StatCard
@@ -54,7 +54,7 @@ export default function Dashboard() {
           subtext="Kurikulum akademik terverifikasi"
           badgeText="Progress"
           badgeColor="emerald"
-          colorClass="from-emerald-500/20 to-teal-500/10 text-emerald-400"
+          colorClass="bg-emerald-600/15 text-emerald-500 dark:text-emerald-400"
         />
 
         <StatCard
@@ -64,7 +64,7 @@ export default function Dashboard() {
           subtext={`Dari total ${totalQuizzes} sesi kuis`}
           badgeText={streak.count > 0 ? `${streak.count}d Streak` : 'Latihan'}
           badgeColor="amber"
-          colorClass="from-rose-500/20 to-purple-500/10 text-rose-400"
+          colorClass="bg-amber-600/15 text-amber-500 dark:text-amber-400"
         />
       </div>
 

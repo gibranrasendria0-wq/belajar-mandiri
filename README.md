@@ -62,16 +62,34 @@
 - **Fitur Ulangi Soal yang Salah**: Memungkinkan pengulangan spesifik untuk nomor yang keliru.
 - Animasi confetti perayaan (*canvas-confetti*) untuk skor tinggi.
 
-### 6. 🎖️ Achievements & Badges
+### 6. 🏆 Papan Peringkat (Leaderboard) & Liga Kompetitif
+- **Simulasi Liga Pelajar**: Membandingkan posisi rank pemain secara real-time dengan pelajar rival virtual.
+- **Top 3 Podium**: Kartu podium khusus untuk Medali Emas (#1), Perak (#2), dan Perunggu (#3).
+- **Tab Periode Fleksibel**: Pilihan tinjauan peringkat *Sepanjang Masa* vs *Minggu Ini*.
+- **Pencarian Rival**: Kotak pencarian cepat untuk mencari nama pelajar di daftar peringkat.
+
+### 7. 🔖 Bookmark / Simpanan Materi & Soal Favorit
+- **Simpan Materi Penting**: Tombol simpan (*Bookmark*) di setiap halaman materi pelajaran.
+- **Simpan Soal Menantang**: Ikon bookmark langsung pada kartu soal kuis untuk ditinjau pembahasannya kemudian.
+- **Halaman Khusus Simpanan**: Filter tab untuk materi dan soal tersimpan dengan tombol hapus serta pencarian cepat.
+
+### 8. 💾 Cadangan & Pemulihan Data (Backup & Restore JSON)
+- **Ekspor Data (JSON)**: Mengunduh berkas cadangan berisi XP, level, streak, quest, kuis, badge, dan materi tersimpan.
+- **Impor Data (JSON)**: Memulihkan kembali semua progres belajar tanpa kehilangan data saat berpindah perangkat atau browser.
+
+### 9. 🗂️ Kuis Evaluasi Per Modul (Mini Quiz 5 Soal)
+- Tombol evaluasi langsung di halaman modul materi yang meluncurkan 5 soal spesifik sesuai topik dan tingkat kesulitan materi yang baru saja dibaca.
+
+### 10. 🎖️ Achievements & Badges
 - 8 Badge pencapaian yang terbuka secara dinamis berdasarkan aksi nyata (First Step, Quick Learner, Perfect Score, Knowledge Hunter, Consistency Champion, Rising Star, Century Club, The Polymath).
 - Indikator badge terkunci vs terbuka dengan tanggal perolehan dan progres menuju syarat buka.
 
-### 7. 👤 Profil & Statistik
+### 11. 👤 Profil & Statistik
 - Penggantian nama tampilan pengguna.
 - Pemilihan 6 avatar karakter (*Cyber Ninja, Astro Scholar, Dragon Mage, Pixel Hero, Quantum Owl, Zen Master*).
 - Rincian performa dan akurasi per kategori mata pelajaran.
 
-### 8. ⚙️ Pengaturan & Fleksibilitas
+### 12. ⚙️ Pengaturan & Fleksibilitas
 - **Dark Mode & Light Mode**: Tema visual modern dengan latar gelap `#0B0D12` sebagai tema utama dan alternatif tema terang yang bersih.
 - Pengaturan suara efek kuis (*on/off*).
 - Pengaturan timer kuis (*on/off*).

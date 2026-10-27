@@ -49,19 +49,17 @@ export default function Achievements() {
   return (
     <div className="space-y-8 animate-fade-in pb-12 max-w-5xl mx-auto">
       {/* Header Banner with Trophy Progress */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950 via-[#131722] to-[#191F2D] border border-indigo-500/30 p-8 sm:p-10 text-white shadow-xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
+      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#191F2D] border border-blue-500/30 p-8 sm:p-10 text-slate-900 dark:text-white shadow-xl">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-lg">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-wider">
-              <Trophy className="w-3.5 h-3.5 text-amber-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider">
+              <Trophy className="w-3.5 h-3.5 text-amber-500" />
               <span>Hall of Fame</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
               Koleksi Badge & Pencapaian
             </h1>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               Buktikan dedikasi belajarmu dengan membuka seluruh badge kehormatan. Setiap badge memberikan tambahan XP untuk mempercepat kenaikan level.
             </p>
           </div>
@@ -76,7 +74,7 @@ export default function Achievements() {
             <ProgressBar
               progress={progressPercent}
               height="h-2.5"
-              gradient="from-amber-400 via-indigo-500 to-cyan-400"
+              color="bg-blue-600"
             />
           </div>
         </div>

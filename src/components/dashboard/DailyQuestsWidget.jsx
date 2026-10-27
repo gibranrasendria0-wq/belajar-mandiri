@@ -85,7 +85,7 @@ export default function DailyQuestsWidget() {
                   ) : canClaim ? (
                     <button
                       onClick={() => claimQuestReward(quest.id)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-indigo-600 text-white font-bold text-xs tracking-wide shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all animate-pulse"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs tracking-wide shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all animate-pulse"
                     >
                       <Gift className="w-3.5 h-3.5" /> Klaim +{quest.rewardXp} XP
                     </button>
@@ -104,7 +104,7 @@ export default function DailyQuestsWidget() {
                   height="h-1.5"
                   label=""
                   detail={`${quest.progress} / ${quest.target}`}
-                  gradient={quest.completed ? 'from-emerald-500 to-teal-400' : 'from-indigo-500 to-cyan-400'}
+                  color={quest.completed ? 'bg-emerald-500' : 'bg-blue-600'}
                 />
               </div>
             </div>

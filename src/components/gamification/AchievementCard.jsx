@@ -32,13 +32,13 @@ export default function AchievementCard({ achievement, isUnlocked, unlockedAt, p
     <div
       className={`relative overflow-hidden rounded-3xl p-6 border transition-all duration-300 ${
         isUnlocked
-          ? 'bg-gradient-to-br from-indigo-950/40 via-white dark:via-[#191F2D] to-purple-950/20 border-indigo-500/40 shadow-lg dark:shadow-card-dark'
+          ? 'bg-white dark:bg-[#191F2D] border-blue-500/40 shadow-lg dark:shadow-card-dark'
           : 'bg-white/60 dark:bg-[#191F2D]/60 border-slate-200 dark:border-[#232B3E] opacity-75'
       }`}
     >
       {/* Background ambient glow if unlocked */}
       {isUnlocked && (
-        <div className="absolute -top-12 -right-12 w-28 h-28 bg-indigo-500/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -top-12 -right-12 w-28 h-28 bg-blue-600/10 rounded-full blur-2xl pointer-events-none" />
       )}
 
       <div className="flex items-start gap-4">
@@ -46,7 +46,7 @@ export default function AchievementCard({ achievement, isUnlocked, unlockedAt, p
         <div
           className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border shadow-inner ${
             isUnlocked
-              ? 'bg-gradient-to-tr from-indigo-600 to-cyan-400 text-white border-white/20 shadow-glow-primary'
+              ? 'bg-blue-600 text-white border-blue-400 shadow-md shadow-blue-600/30'
               : 'bg-slate-100 dark:bg-[#131722] text-slate-400 dark:text-slate-600 border-slate-200 dark:border-white/5'
           }`}
         >

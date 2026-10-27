@@ -12,11 +12,12 @@ export default function QuizPlay() {
   const navigate = useNavigate();
   const { triggerSound } = useGame();
 
+  const searchParams = new URLSearchParams(location.search);
   const config = location.state || {
-    category: 'all',
-    difficulty: 'all',
-    count: 10,
-    timerEnabled: true,
+    category: searchParams.get('category') || 'all',
+    difficulty: searchParams.get('difficulty') || 'all',
+    count: parseInt(searchParams.get('count') || '10', 10),
+    timerEnabled: searchParams.get('timer') !== 'false',
   };
 
   // 1. Initialize questions once per session
@@ -207,7 +208,7 @@ export default function QuizPlay() {
         progress={progressPercent}
         height="h-2"
         showLabel={false}
-        gradient="from-indigo-500 via-purple-500 to-cyan-400"
+        color="bg-blue-600"
       />
 
       {/* Current Question Card */}

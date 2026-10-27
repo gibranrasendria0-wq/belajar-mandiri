@@ -1,6 +1,8 @@
 // LocalStorage manager for EduGaming with safe fallback and schemas
 
 export const STORAGE_KEYS = {
+  USERS: 'edugaming_users_v1',
+  ACTIVE_USER_EMAIL: 'edugaming_active_email_v1',
   PROFILE: 'edugaming_profile_v1',
   XP: 'edugaming_xp_v1',
   STREAK: 'edugaming_streak_v1',
@@ -11,6 +13,7 @@ export const STORAGE_KEYS = {
   ACHIEVEMENTS: 'edugaming_achievements_v1',
   SETTINGS: 'edugaming_settings_v1',
   RECENT_ACTIVITY: 'edugaming_activity_v1',
+  BOOKMARKS: 'edugaming_bookmarks_v1',
 };
 
 export const DEFAULT_AVATARS = [
@@ -23,8 +26,10 @@ export const DEFAULT_AVATARS = [
 ];
 
 export const DEFAULT_PROFILE = {
+  email: null,
   name: 'Player One',
   avatarId: 'cyber-ninja',
+  avatarUrl: null, // Data URL from user gallery image
   bio: 'Siap menaklukkan pengetahuan dan naik level setiap hari!',
   joinedDate: new Date().toISOString(),
 };
@@ -58,6 +63,56 @@ export function saveToStorage(key, value) {
     console.warn(`[EduGaming Storage] Failed writing key "${key}":`, err);
     return false;
   }
+}
+
+// User accounts management (multi-account persistence)
+export function getAllUsers() {
+  return getFromStorage(STORAGE_KEYS.USERS, {});
+}
+
+export function getUserByEmail(email) {
+  if (!email) return null;
+  const users = getAllUsers();
+  return users[email.trim().toLowerCase()] || null;
+}
+
+export function saveUserRecord(user) {
+  if (!user || !user.email) return false;
+  const normalizedEmail = user.email.trim().toLowerCase();
+  const users = getAllUsers();
+  users[normalizedEmail] = {
+    ...users[normalizedEmail],
+    ...user,
+    email: normalizedEmail,
+    lastActiveAt: new Date().toISOString(),
+  };
+  return saveToStorage(STORAGE_KEYS.USERS, users);
+}
+
+export function deleteUserRecord(email) {
+  if (!email) return false;
+  const normalizedEmail = email.trim().toLowerCase();
+  const users = getAllUsers();
+  if (users[normalizedEmail]) {
+    delete users[normalizedEmail];
+    saveToStorage(STORAGE_KEYS.USERS, users);
+    return true;
+  }
+  return false;
+}
+
+export function getActiveUserEmail() {
+  return getFromStorage(STORAGE_KEYS.ACTIVE_USER_EMAIL, null);
+}
+
+export function setActiveUserEmail(email) {
+  if (!email) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(STORAGE_KEYS.ACTIVE_USER_EMAIL);
+    }
+    return;
+  }
+  saveToStorage(STORAGE_KEYS.ACTIVE_USER_EMAIL, email.trim().toLowerCase());
 }
 
 export function resetAllStorage() {

@@ -23,7 +23,7 @@ import ProgressBar from '../components/ui/ProgressBar';
 export default function LessonDetail() {
   const { lessonId } = useParams();
   const navigate = useNavigate();
-  const { completedLessons, completeLesson } = useGame();
+  const { completedLessons, completeLesson, bookmarks, toggleBookmarkLesson } = useGame();
 
   // Find active lesson
   const currentLesson = useMemo(() => {
@@ -55,12 +55,17 @@ export default function LessonDetail() {
     );
   }, [completedLessons, currentLesson.id]);
 
+  // Bookmark check
+  const isBookmarked = useMemo(() => {
+    return (bookmarks?.lessons || []).includes(currentLesson.id);
+  }, [bookmarks, currentLesson.id]);
+
   const handleMarkComplete = () => {
     completeLesson(currentLesson.id, currentLesson.category, currentLesson.title);
   };
 
   const handleStartRelatedQuiz = () => {
-    navigate(`/quiz?category=${currentLesson.category}&difficulty=${currentLesson.difficulty.toLowerCase()}`);
+    navigate(`/quiz/play?category=${currentLesson.category}&difficulty=${currentLesson.difficulty.toLowerCase()}&count=5`);
   };
 
   return (
@@ -116,6 +121,20 @@ export default function LessonDetail() {
               <span className="flex items-center gap-1 text-xs font-bold text-cyan-500 dark:text-cyan-400">
                 <Zap className="w-3.5 h-3.5 fill-current" /> +{currentLesson.xpReward} XP
               </span>
+
+              {/* Bookmark Toggle */}
+              <button
+                onClick={() => toggleBookmarkLesson(currentLesson.id)}
+                className={`ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  isBookmarked
+                    ? 'bg-amber-500/10 border-amber-500/40 text-amber-500 dark:text-amber-400 shadow-sm'
+                    : 'bg-slate-50 dark:bg-[#131722] border-slate-200 dark:border-[#232B3E] text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                }`}
+                title={isBookmarked ? 'Hapus dari Simpanan' : 'Simpan Materi Ini'}
+              >
+                <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-current' : ''}`} />
+                <span>{isBookmarked ? 'Tersimpan' : 'Simpan'}</span>
+              </button>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
@@ -186,8 +205,8 @@ export default function LessonDetail() {
 
             {/* Key Summary */}
             {currentLesson.summary && (
-              <div className="p-5 rounded-2xl bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/30 space-y-2">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+              <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/30 space-y-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                   Rangkuman Inti Materi:
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
@@ -216,9 +235,9 @@ export default function LessonDetail() {
 
             <button
               onClick={handleStartRelatedQuiz}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-md shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
             >
-              <HelpCircle className="w-4 h-4" /> Uji Pemahaman di Quiz Center
+              <HelpCircle className="w-4 h-4 text-cyan-300" /> Kuis Evaluasi Materi (5 Soal)
             </button>
           </div>
         </div>

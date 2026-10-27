@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, Search, Flame, Zap, User } from 'lucide-react';
+import {
+  Menu,
+  Search,
+  Flame,
+  Zap,
+  LogIn,
+  LogOut,
+  Users,
+  User,
+  ChevronDown,
+  ShieldCheck,
+} from 'lucide-react';
 import { useGame } from '../../context/GameContext';
 import ThemeToggle from '../ui/ThemeToggle';
+import UserAvatar from '../ui/UserAvatar';
 
 export default function Topbar({ onOpenMobileMenu }) {
-  const { profile, levelInfo, streak } = useGame();
+  const { profile, levelInfo, streak, isLoggedIn, logoutUser } = useGame();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +67,7 @@ export default function Topbar({ onOpenMobileMenu }) {
       </div>
 
       {/* Right: Gamification Badges, Theme Toggle, Profile */}
-      <div className="flex items-center gap-2.5 sm:gap-4">
+      <div className="flex items-center gap-2 sm:gap-3.5">
         {/* Streak Badge */}
         <div
           title={`Learning Streak: ${streak.count} hari berturut-turut`}
@@ -67,19 +92,91 @@ export default function Topbar({ onOpenMobileMenu }) {
         {/* Theme Toggle */}
         <ThemeToggle />
 
-        {/* User Avatar */}
-        <Link
-          to="/profile"
-          className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[#191F2D] border border-slate-200 dark:border-[#232B3E] transition-all"
-          title="Buka Profil"
-        >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center text-white text-xs font-bold shadow-sm">
-            <User className="w-4 h-4" />
-          </div>
-          <span className="hidden md:inline text-xs font-bold text-slate-800 dark:text-white pr-1 truncate max-w-[100px]">
-            {profile.name}
-          </span>
-        </Link>
+        {/* If guest, show prominent Login button */}
+        {!isLoggedIn && (
+          <Link
+            to="/login"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-sm shadow-blue-600/25 transition-all"
+          >
+            <LogIn className="w-3.5 h-3.5" />
+            <span>Masuk</span>
+          </Link>
+        )}
+
+        {/* User Avatar with Dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center gap-2 p-1 rounded-2xl hover:bg-slate-100 dark:hover:bg-[#191F2D] border border-slate-200 dark:border-[#232B3E] transition-all"
+            title="Menu Akun"
+          >
+            <UserAvatar
+              avatarUrl={profile.avatarUrl}
+              avatarId={profile.avatarId}
+              name={profile.name}
+              size="sm"
+            />
+            <span className="hidden md:inline text-xs font-bold text-slate-800 dark:text-white pr-0.5 truncate max-w-[100px]">
+              {profile.name}
+            </span>
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400 mr-1 hidden sm:block" />
+          </button>
+
+          {/* User Account Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-[#191F2D] border border-slate-200 dark:border-[#232B3E] shadow-xl p-2 z-50 animate-scale-in">
+              <div className="px-3 py-2 border-b border-slate-100 dark:border-white/5 mb-1.5">
+                <p className="text-xs font-extrabold text-slate-900 dark:text-white truncate">
+                  {profile.name}
+                </p>
+                {profile.email ? (
+                  <p className="text-[11px] text-slate-400 truncate flex items-center gap-1 mt-0.5">
+                    <ShieldCheck className="w-3 h-3 text-emerald-500 shrink-0" />
+                    <span className="truncate">{profile.email}</span>
+                  </p>
+                ) : (
+                  <p className="text-[10px] text-amber-500 font-bold mt-0.5">
+                    Profil Tamu (Lokal)
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <Link
+                  to="/profile"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#131722] hover:text-indigo-500 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Profil & Statistik</span>
+                </Link>
+
+                <Link
+                  to="/login"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#131722] hover:text-indigo-500 transition-colors"
+                >
+                  <Users className="w-4 h-4 text-cyan-400" />
+                  <span>{isLoggedIn ? 'Ganti / Tambah Akun' : 'Masuk / Daftar Email'}</span>
+                </Link>
+
+                {isLoggedIn && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      logoutUser();
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 transition-colors text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Keluar dari Akun</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );

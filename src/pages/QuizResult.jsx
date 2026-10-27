@@ -134,23 +134,21 @@ export default function QuizResult() {
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in pb-16">
       {/* Hero Victory Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950 via-[#131722] to-[#191F2D] border border-indigo-500/30 p-8 sm:p-12 text-center text-white shadow-2xl">
-        <div className="absolute top-0 right-1/4 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#191F2D] border border-blue-500/30 p-8 sm:p-12 text-center text-slate-900 dark:text-white shadow-2xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
+          <Sparkles className="w-3.5 h-3.5 text-blue-500" />
           <span>{motivation.badge}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
           {motivation.title}
         </h1>
-        <p className="mt-2 text-sm sm:text-base text-slate-300 max-w-lg mx-auto font-normal">
+        <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-lg mx-auto font-normal">
           {motivation.desc}
         </p>
 
         {/* Primary XP Gained Badge */}
-        <div className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600/60 to-cyan-600/60 border border-cyan-400/40 text-cyan-300 text-lg font-black shadow-lg shadow-cyan-500/20">
+        <div className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-blue-600/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-lg font-black shadow-md">
           <Zap className="w-5 h-5 fill-current" />
           <span>+{xpEarned} XP Berhasil Diraih!</span>
         </div>
@@ -164,7 +162,7 @@ export default function QuizResult() {
           value={`${correctCount} Soal`}
           subtext={`Dari ${totalQuestions} soal total`}
           badgeColor="emerald"
-          colorClass="from-emerald-500/20 to-teal-500/10 text-emerald-400"
+          colorClass="bg-emerald-600/15 text-emerald-500 dark:text-emerald-400"
         />
 
         <StatCard
@@ -173,7 +171,7 @@ export default function QuizResult() {
           value={`${wrongCount} Soal`}
           subtext="Perlu dievaluasi"
           badgeColor="rose"
-          colorClass="from-rose-500/20 to-red-500/10 text-rose-400"
+          colorClass="bg-rose-600/15 text-rose-500 dark:text-rose-400"
         />
 
         <StatCard
@@ -182,7 +180,7 @@ export default function QuizResult() {
           value={`${accuracy}%`}
           subtext="Tingkat ketepatan"
           badgeColor="indigo"
-          colorClass="from-indigo-500/20 to-purple-500/10 text-indigo-400"
+          colorClass="bg-indigo-600/15 text-indigo-500 dark:text-indigo-400"
         />
 
         <StatCard
@@ -191,7 +189,7 @@ export default function QuizResult() {
           value={`${Math.floor(timeSpentSeconds / 60)}m ${timeSpentSeconds % 60}s`}
           subtext="Waktu penyelesaian"
           badgeColor="amber"
-          colorClass="from-amber-500/20 to-orange-500/10 text-amber-400"
+          colorClass="bg-amber-600/15 text-amber-500 dark:text-amber-400"
         />
       </div>
 
@@ -199,7 +197,7 @@ export default function QuizResult() {
       <div className="flex flex-wrap items-center justify-center gap-3.5">
         <button
           onClick={handlePlayAgain}
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-md shadow-blue-600/30 transition-all transform hover:-translate-y-0.5"
         >
           <RotateCcw className="w-4 h-4" />
           <span>Main Lagi (Konfigurasi Sama)</span>

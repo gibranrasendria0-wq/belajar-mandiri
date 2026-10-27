@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import MobileDrawer from './MobileDrawer';
-import ToastNotification from '../ui/ToastNotification';
 import LevelUpModal from '../ui/LevelUpModal';
 
 export default function AppLayout() {
@@ -37,8 +36,7 @@ export default function AppLayout() {
         </main>
       </div>
 
-      {/* Global Modals & Notifications */}
-      <ToastNotification />
+      {/* Global Modals */}
       <LevelUpModal />
     </div>
   );

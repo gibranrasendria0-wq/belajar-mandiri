@@ -1,6 +1,7 @@
 import React from 'react';
-import { CheckCircle2, XCircle, Lightbulb, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle, Lightbulb, ArrowRight, Bookmark } from 'lucide-react';
 import DifficultyBadge from '../ui/DifficultyBadge';
+import { useGame } from '../../context/GameContext';
 
 export default function QuestionCard({
   question,
@@ -11,7 +12,10 @@ export default function QuestionCard({
   onNextQuestion,
   isLastQuestion,
 }) {
+  const { bookmarks, toggleBookmarkQuestion } = useGame();
   if (!question) return null;
+
+  const isBookmarked = (bookmarks?.questions || []).some((q) => q.id === question.id);
 
   const optionLetters = ['A', 'B', 'C', 'D'];
 
@@ -64,7 +68,20 @@ export default function QuestionCard({
         <span className="text-xs font-bold uppercase tracking-wider text-indigo-500 dark:text-indigo-400">
           Kategori: {question.category}
         </span>
-        <DifficultyBadge difficulty={question.difficulty} />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => toggleBookmarkQuestion(question)}
+            className={`p-1.5 rounded-xl border transition-all ${
+              isBookmarked
+                ? 'bg-amber-500/10 border-amber-500/40 text-amber-500'
+                : 'border-slate-200 dark:border-[#232B3E] text-slate-400 hover:text-slate-600 dark:hover:text-white'
+            }`}
+            title={isBookmarked ? 'Hapus Simpanan Soal' : 'Simpan Soal Ini'}
+          >
+            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
+          </button>
+          <DifficultyBadge difficulty={question.difficulty} />
+        </div>
       </div>
 
       {/* Question Text */}
@@ -130,7 +147,7 @@ export default function QuestionCard({
             onClick={onConfirmAnswer}
             className={`px-8 py-3.5 rounded-2xl font-bold text-sm tracking-wide transition-all ${
               selectedIndex !== null
-                ? 'bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white shadow-lg shadow-indigo-600/30 transform hover:-translate-y-0.5 active:translate-y-0'
+                ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transform hover:-translate-y-0.5 active:translate-y-0'
                 : 'bg-slate-200 dark:bg-white/10 text-slate-400 cursor-not-allowed'
             }`}
           >
@@ -139,7 +156,7 @@ export default function QuestionCard({
         ) : (
           <button
             onClick={onNextQuestion}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-sm tracking-wide shadow-lg shadow-indigo-600/30 transform hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm tracking-wide shadow-md shadow-blue-600/30 transform hover:-translate-y-0.5 active:translate-y-0"
           >
             <span>{isLastQuestion ? 'Lihat Hasil Akhir' : 'Soal Berikutnya'}</span>
             <ArrowRight className="w-4 h-4" />

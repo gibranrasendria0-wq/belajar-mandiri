@@ -1,21 +1,25 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   BookOpen,
   HelpCircle,
   Trophy,
+  Medal,
+  Bookmark,
   User,
   Settings,
   X,
   Zap,
   Flame,
+  Users,
 } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
 import ProgressBar from '../ui/ProgressBar';
+import UserAvatar from '../ui/UserAvatar';
 
 export default function MobileDrawer({ isOpen, onClose }) {
-  const { levelInfo, streak, profile } = useGame();
+  const { levelInfo, streak, profile, isLoggedIn } = useGame();
 
   if (!isOpen) return null;
 
@@ -23,6 +27,8 @@ export default function MobileDrawer({ isOpen, onClose }) {
     { to: '/', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/courses', label: 'Materi Belajar', icon: BookOpen },
     { to: '/quiz', label: 'Quiz Center', icon: HelpCircle },
+    { to: '/leaderboard', label: 'Peringkat', icon: Medal },
+    { to: '/bookmarks', label: 'Simpanan', icon: Bookmark },
     { to: '/achievements', label: 'Achievements', icon: Trophy },
     { to: '/profile', label: 'Profil & Statistik', icon: User },
     { to: '/settings', label: 'Pengaturan', icon: Settings },
@@ -41,14 +47,14 @@ export default function MobileDrawer({ isOpen, onClose }) {
         {/* Header */}
         <div className="h-20 flex items-center justify-between px-6 border-b border-slate-200 dark:border-[#232B3E]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white shadow-glow-primary">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-600/30">
               <Zap className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">
-                Edu<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Gaming</span>
+              <span className="font-extrabold text-base text-slate-900 dark:text-white tracking-tight">
+                Belajar Mandiri
               </span>
-              <p className="text-[10px] uppercase font-bold text-slate-400">Level Up Knowledge</p>
+              <p className="text-[10px] uppercase font-bold text-slate-400">Platform Belajar</p>
             </div>
           </div>
           <button
@@ -70,7 +76,7 @@ export default function MobileDrawer({ isOpen, onClose }) {
               className={({ isActive }) =>
                 `flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
                   isActive
-                    ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/30'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#191F2D]'
                 }`
               }
@@ -82,11 +88,27 @@ export default function MobileDrawer({ isOpen, onClose }) {
         </nav>
 
         {/* Bottom Profile info */}
-        <div className="p-4 m-4 rounded-2xl bg-slate-50 dark:bg-[#191F2D] border border-slate-200 dark:border-[#232B3E] space-y-3">
+        <Link
+          to="/profile"
+          onClick={onClose}
+          className="p-4 m-4 rounded-2xl bg-slate-50 dark:bg-[#191F2D] border border-slate-200 dark:border-[#232B3E] hover:border-indigo-500/50 space-y-3 block transition-colors"
+        >
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-slate-900 dark:text-white">{profile.name}</p>
-              <p className="text-[10px] text-indigo-500 dark:text-indigo-400 font-semibold">{levelInfo.title}</p>
+            <div className="flex items-center gap-2.5">
+              <UserAvatar
+                avatarUrl={profile.avatarUrl}
+                avatarId={profile.avatarId}
+                name={profile.name}
+                size="sm"
+              />
+              <div className="leading-tight">
+                <p className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[100px]">
+                  {profile.name}
+                </p>
+                <p className="text-[10px] text-indigo-500 dark:text-indigo-400 font-semibold truncate max-w-[100px]">
+                  {levelInfo.title}
+                </p>
+              </div>
             </div>
             <div className="flex items-center gap-1 text-xs font-bold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
               <Flame className="w-3.5 h-3.5 fill-current" />
@@ -99,7 +121,7 @@ export default function MobileDrawer({ isOpen, onClose }) {
             label={`Lvl ${levelInfo.level}`}
             detail={`${levelInfo.xpInCurrentLevel}/${levelInfo.xpNeededForNext} XP`}
           />
-        </div>
+        </Link>
       </div>
     </div>
   );
